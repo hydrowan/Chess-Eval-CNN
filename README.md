@@ -10,6 +10,7 @@ Feature Extraction.py relies on the Stockfish chess engine, which can be downloa
 
 A chess position can be either generated using the Stockfish engine or specified using [Forsyth-Edwards Notation (FEN) codes](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation).
 Generation of a position uses the Stockfish engine against itself at random, so likely different, 'skill' levels such that an interesting and randomly evaluated position is reached. (Always setting to a similar level would mean all evaluations are approximately 0.0).
+Similar online tools that are much faster randomise the FEN or play random legal moves, but these head mostly nonsense positions which are extremely unlikely to be reached in a real game.
 
 Evaluation is also done with the Stockfish engine and gives the pawn advantage score relative to white as a float.
 ```python
