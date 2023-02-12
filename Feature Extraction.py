@@ -26,6 +26,7 @@ def evaluate_fen(fen):
     board = chess.Board(fen)
     engine = chess.engine.SimpleEngine.popen_uci("stockfish/stockfish.exe")
     info = engine.analyse(board, chess.engine.Limit(time=0.1,depth=20))
+    engine.quit()
     return info["score"].white().cp /100.0
 
 
@@ -72,6 +73,7 @@ def generate_fen(moves:int = None, p1_skill = None, p2_skill = None,time_per_mov
             print(f"Game over at move {i}")
             board.pop() # Avoid trying to evaluate a checkmate position
             break
+    engine.quit()
     print(f'Game finished')
     return board.fen()
 
@@ -284,13 +286,20 @@ def generate_dataset(num_images, folder_name):
 
 def main():
     while True:
-        try:
-            generate_dataset(2**32, "data2")
-        except chess.engine.EngineTerminatedError as e:
-            print(e)
-            
+        
+        generate_dataset(2**32, "data2")
+
+        # I believe these errors are now prevented, will delete in next commit:
+        # except chess.engine.EngineTerminatedError as e:
+        #     print(e)
+        # except OSError as e:
+        #     print(e)
+        #     # OSError: [WinError 1455] The paging file is too small for this operation to complete
+        #     # Running out of memory
+
     print("Finished.")
 
 
 if __name__ == "__main__":
     main()
+ 
