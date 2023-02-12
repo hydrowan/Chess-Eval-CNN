@@ -5,7 +5,8 @@ A convolutional neural network may excel here, as convolution kernels could take
 
 This small project aims to extract a small amount of interesting features from self-generated chess positions, evaluate them and train a network to approximate the values.
 
-# Chess Position Generation and Evaluation
+# Feature Extraction
+## Chess Position Generation and Evaluation
 Feature Extraction.py relies on the Stockfish chess engine, which can be downloaded [here](https://stockfishchess.org/download/), and the python-chess module.
 
 A chess position can be either generated using the Stockfish engine or specified using [Forsyth-Edwards Notation (FEN) codes](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation).
@@ -24,14 +25,14 @@ fen = generate_fen(time_per_move=0.01, p1_skill=5, p2_skill=18, moves=100)
 ```
 <img src="media/m1.png" width="400">
 
-# Piece and King Strength and Localisation
+## Piece and King Strength and Localisation
 The first two dimensions in the feature extraction represent the position of pieces as extracted from the FEN.
 To spare dimensionality but differentiate between colour each 8x8x1 array slice starts as a 50% gray plane and is populated with lighter or darker values for white or black pieces respectively.
 The pieces are distributed from 255/2 -> 255 or 0 -> 255 respective to their points values in Chess.
 Bishops however are rated marginally higher as this differentiates them from knights and illustates their slight advantage (though controversial).
 Kings are rated only slightly higher than pawns to demonstrate their positional strength in dimension 1 and their localisations are also placed, alone, into the second dimension in this array.
 
-## Pawn progression
+### Pawn progression
 As pawns approaching the final rank are far more dangerous than further back pawns, a function is used to increase the value of the pawn towards a queen exponentially as it starts to reach this final rank. As such this is only very apparent when a pawn is passed and has been able to breach rank 7.
 
 An exponential function was created to describe this:
@@ -50,7 +51,7 @@ Linear function:
 Final exponential function implementation:  
 <img src="media/Exponential.png" width="400">
 
-# Dimension 3: Square contesting
+## Dimension 3: Square contesting
 The final dimension aims to illustrate dangerous squares in open positions to the network as well as ignoring threats from on pieces that are defended.
 Similarly to previous methods an (8,8,1) array is initialised with 50% gray values and the board is iterated over and threats and defense on each square calculated.
 
@@ -61,14 +62,14 @@ Code should be incorporated to not count protection or attack from pieces which 
 Where an equal number of attackers from both sides attack a square, it equalises and cancels out.
 <img src="media/attack.png" width="400">
 
-# Final Map:
+## Final Map:
 No dimension reduction is currently needed as these maps only occupy three dimensions.
 Despite this the split_dimensions(array) function serves to split up any (8,8,n) array into component images and display them together.
 As you can see below this is useful as the final RGB images are difficult to comprehend despite only having 3 dimensions / maps.
 
 <img src="media/Map.png" width="400"> <img src="media/MapPos.png" width="400">
 
-# Overall Usage Example:
+## Overall Usage Example:
 
 To generate a full dataset of images the basic function generate_dataset() exists with appropriate documentation in its doc string.
 I advise against asynchronous / multiprocessing as the stockfish engine tends to crash and uses a lot of memory.
@@ -86,5 +87,8 @@ concat = visualise(position, attack)
 
 display_image(concat) # Basic CV2 function that displays small images largely
 ```
+
+# Convolutional Neural Network
+
 
 
