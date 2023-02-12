@@ -54,6 +54,37 @@ Final exponential function implementation:
 The final dimension aims to illustrate dangerous squares in open positions to the network as well as ignoring threats from on pieces that are defended.
 Similarly to previous methods an (8,8,1) array is initialised with 50% gray values and the board is iterated over and threats and defense on each square calculated.
 
-Code should be incorporated to not count protection or attack from pieces which are pinned to a king, and lessen the effects of pieces that are pinned to a more powerful piece. **Furthermore more dimensions and biases need to be implemented overall to account for which colour can move, castling availability (i.e. through check etc) and en passant.**.
+Code should be incorporated to not count protection or attack from pieces which are pinned to a king, and lessen the effects of pieces that are pinned to a more powerful piece. **Furthermore more dimensions and biases need to be implemented overall to account for which colour can move, castling availability (i.e. through check etc) and en passant.**
+
+2D slice showing how piece attack works. Naturally, pieces block the attack of 'long-range' pieces and you can observe in the top right the stacking of two pieces attacking/defending the same square.
+
+Where an equal number of attackers from both sides attack a square, it equalises and cancels out.
+<img src="media/attack.png" width="400">
+
+# Final Map:
+No dimension reduction is currently needed as these maps only occupy three dimensions.
+Despite this the split_dimensions(array) function serves to split up any (8,8,n) array into component images and display them together.
+As you can see below this is useful as the final RGB images are difficult to comprehend despite only having 3 dimensions / maps.
+
+<img src="media/Map.png" width="400"> <img src="media/MapPos.png" width="400">
+
+# Overall Usage Example:
+
+To generate a full dataset of images the basic function generate_dataset() exists with appropriate documentation in its doc string.
+I advise against asynchronous / multiprocessing as the stockfish engine tends to crash and uses a lot of memory.
+
+Basic usage
+```python
+
+fen = generate_fen() # Optional params and definitions in docstring
+# OR
+fen = "FEN STRING"
+
+position = fen_to_image(fen)
+attack = board_control(fen)
+concat = visualise(position, attack)
+
+display_image(concat) # Basic CV2 function that displays small images largely
+```
 
 
