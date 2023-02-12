@@ -50,4 +50,10 @@ Linear function:
 Final exponential function implementation:  
 <img src="media/Exponential.png" width="400">
 
+# Dimension 3: Square contesting
+The final dimension aims to illustrate dangerous squares in open positions to the network as well as ignoring threats from on pieces that are defended.
+Similarly to previous methods an (8,8,1) array is initialised with 50% gray values and the board is iterated over and threats and defense on each square calculated.
+
+Code should be incorporated to not count protection or attack from pieces which are pinned to a king, and lessen the effects of pieces that are pinned to a more powerful piece. **Furthermore more dimensions and biases need to be implemented overall to account for which colour can move, castling availability (i.e. through check etc) and en passant.**.
+
 
