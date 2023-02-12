@@ -23,3 +23,5 @@ The function will break at checkmate or draw, if the target moves have not been 
 fen = generate_fen(time_per_move=0.01, p1_skill=5, p2_skill=18, moves=100)
 ```
 
+![m1](/media/m1.png|width=100)
+
