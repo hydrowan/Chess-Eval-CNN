@@ -41,5 +41,13 @@ $$\LARGE y = \frac{1}{2}e^{\frac{(x-5)}{0.725}}+1$$
 With x values in the range:
 $$0 \geq x \geq 7$$
 
+Initial values with no modification:  
+<img src="media/Pawns.png" width="400">
+
+Linear function:  
+<img src="media/Linear.png" width="400">
+
+Final exponential function implementation:  
+<img src="media/Exponential.png" width="400">
 
 
